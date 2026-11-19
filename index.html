@@ -1,17 +1,17 @@
 <!doctype html>
-<html lang="no">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>GJONA · Heltre, laget på mål</title>
-<meta name="description" content="Spisebord og sofabord i heltre eik og ask, laget på bestilling og produsert i Norge.">
+<title>Gjona × Villa Sjövik — Collaboration proposal 2026</title>
+<meta name="description" content="Gjona's solid wood tables at Villa Sjövik, for 206,000 followers who invest in their homes.">
 <meta name="theme-color" content="#0d1316">
 <meta name="robots" content="noindex, nofollow">
 <link rel="icon" type="image/png" href="favicon.png">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://villasjovik.github.io/gjona-forslag/">
-<meta property="og:title" content="GJONA · Heltre, laget på mål">
-<meta property="og:description" content="Forslag til ny landingsside for GJONA.">
+<meta property="og:title" content="Gjona × Villa Sjövik — Collaboration proposal 2026">
+<meta property="og:description" content="Gjona's solid wood tables at Villa Sjövik, for 206,000 followers who invest in their homes.">
 <meta property="og:image" content="https://villasjovik.github.io/gjona-forslag/og.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -19,12 +19,18 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,700;0,6..96,800;0,6..96,900;1,6..96,400;1,6..96,500&family=Hanken+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+<script type="importmap">
+{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"}}
+</script>
 <style>
 :root{
   --ink:#0d1316;
+  --ink-2:#131b1f;
   --paper:#eef0ec;
   --frost:#b9ccd4;
   --muted:rgba(238,240,236,.74);
+  --faint:rgba(238,240,236,.5);
+  --line:rgba(238,240,236,.14);
   --ease:cubic-bezier(.16,1,.3,1);
   --serif:"Bodoni Moda", "Didot", Georgia, serif;
   --sans:"Hanken Grotesk", system-ui, sans-serif;
@@ -35,18 +41,20 @@ html{background:var(--ink);-webkit-text-size-adjust:100%}
 body{background:var(--ink);color:var(--paper);font-family:var(--sans);-webkit-font-smoothing:antialiased;overflow-x:clip}
 ::selection{background:var(--frost);color:var(--ink)}
 a{color:inherit}
+button{font:inherit;color:inherit}
 :focus-visible{outline:2px solid var(--frost);outline-offset:4px}
 
-/* Fast scen; skrollsträckan (#track) styr allt som syns på scenen. */
+/* ============ SCEN: fast, skrollsträckan (#track) styr allt som syns ============ */
 #track{position:relative;width:1px;pointer-events:none}
 #stage{position:fixed;inset:0;overflow:hidden;background:var(--ink)}
 
 .brand{position:fixed;z-index:30;top:max(18px,env(safe-area-inset-top));left:var(--gutter);
-  display:flex;align-items:baseline;gap:.55em;text-decoration:none;text-shadow:0 1px 18px rgba(8,12,14,.45)}
-.brand b{font-family:var(--serif);font-weight:800;font-size:clamp(19px,1.7vw,24px);letter-spacing:.2em}
-.brand i{font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(14px,1.1vw,16px);color:var(--frost)}
+  display:flex;align-items:baseline;gap:.5em;text-decoration:none;text-shadow:0 1px 18px rgba(8,12,14,.45);
+  font-family:var(--serif);font-size:clamp(15px,1.25vw,18px)}
+.brand b{font-weight:800;letter-spacing:.18em}
+.brand i{font-style:italic;font-weight:400;color:var(--frost)}
 
-.rail{position:fixed;z-index:30;right:clamp(14px,2.2vw,30px);top:50%;height:min(36vh,280px);width:1px;transform:translateY(-50%);background:rgba(238,240,236,.18)}
+.rail{position:fixed;z-index:50;right:clamp(14px,2.2vw,30px);top:50%;height:min(36vh,280px);width:1px;transform:translateY(-50%);background:rgba(238,240,236,.18);mix-blend-mode:difference}
 .rail i{position:absolute;left:-.5px;top:0;width:2px;height:100%;background:var(--paper);transform-origin:top;transform:scaleY(0)}
 
 .panel{position:absolute;inset:0;visibility:hidden;overflow:hidden;will-change:clip-path}
@@ -55,7 +63,7 @@ a{color:inherit}
 .media img{object-fit:cover;object-position:var(--pos,50%) 50%;display:block}
 .frame + .frame{opacity:0}
 .shade{position:absolute;inset:0;pointer-events:none;
-  background:linear-gradient(90deg,rgba(9,13,15,.62) 0%,rgba(9,13,15,.26) 36%,rgba(9,13,15,0) 60%),
+  background:linear-gradient(90deg,rgba(9,13,15,.7) 0%,rgba(9,13,15,.32) 40%,rgba(9,13,15,0) 64%),
              linear-gradient(0deg,rgba(9,13,15,.55) 0%,rgba(9,13,15,0) 42%)}
 .dim{position:absolute;inset:0;background:#05080a;opacity:0;pointer-events:none}
 
@@ -63,13 +71,18 @@ a{color:inherit}
   font-family:var(--serif);font-weight:900;font-size:clamp(120px,24vw,420px);line-height:1;letter-spacing:-.02em;
   color:rgba(238,240,236,.075);will-change:transform}
 
-.copy{position:absolute;z-index:2;left:var(--gutter);bottom:clamp(44px,12vh,128px);max-width:min(48rem,58vw)}
-.title{font-family:var(--serif);font-weight:800;line-height:.98;letter-spacing:-.02em;font-size:clamp(46px,6.6vw,112px);text-wrap:balance}
-.title em{display:block;font-weight:400;font-style:italic;color:var(--frost);letter-spacing:-.01em;line-height:1.1;padding-bottom:.08em;font-size:.74em;margin-top:.06em}
+.copy{position:absolute;z-index:2;left:var(--gutter);bottom:clamp(40px,10vh,112px);max-width:min(46rem,56vw)}
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--frost);margin-bottom:clamp(12px,1.4vw,20px)}
+.eyebrow b{color:var(--paper);font-weight:600}
+.title{font-family:var(--serif);font-weight:800;line-height:.98;letter-spacing:-.02em;font-size:clamp(44px,6.2vw,104px);text-wrap:balance}
+.title em{display:block;font-weight:400;font-style:italic;color:var(--frost);letter-spacing:-.01em;line-height:1.12;padding-bottom:.08em;font-size:.74em;margin-top:.06em}
 .line{display:block;overflow:hidden;padding-bottom:.04em}
 .line > span{display:block;will-change:transform}
-.sub{margin-top:clamp(14px,1.6vw,22px);font-size:clamp(15px,1.15vw,18px);line-height:1.5;color:var(--muted);max-width:34ch}
-.cta{margin-top:clamp(22px,2.6vw,36px);display:inline-flex;align-items:center;gap:14px;padding:9px 10px 9px 26px;border-radius:999px;
+.sub{margin-top:clamp(14px,1.5vw,20px);font-size:clamp(15px,1.1vw,17px);line-height:1.55;color:var(--muted);max-width:44ch}
+.sub a{color:var(--paper);text-decoration:none;border-bottom:1px solid rgba(185,204,212,.6);transition:border-color .3s}
+.sub a:hover{border-color:var(--paper)}
+.tags{margin-top:14px;font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--faint)}
+.cta{margin-top:clamp(20px,2.4vw,32px);display:inline-flex;align-items:center;gap:14px;padding:9px 10px 9px 26px;border-radius:999px;border:0;cursor:pointer;
   background:var(--paper);color:var(--ink);font-weight:600;font-size:16px;text-decoration:none;white-space:nowrap;
   box-shadow:0 12px 34px rgba(4,8,10,.32);transition:transform .5s var(--ease),background-color .4s var(--ease)}
 .cta .arrow{display:grid;place-items:center;width:38px;height:38px;border-radius:999px;background:var(--ink);color:var(--paper);transition:transform .5s var(--ease)}
@@ -77,78 +90,488 @@ a{color:inherit}
 .cta:hover{background:#fff}
 .cta:hover .arrow{transform:translateX(3px) rotate(-45deg)}
 .cta:active{transform:scale(.97)}
-.contact{margin-top:18px;font-size:14px;color:var(--muted)}
-.contact a{text-decoration:none;border-bottom:1px solid rgba(238,240,236,.3)}
+
+/* Startskärm: loggorna i 3D */
+.hero .shade{background:radial-gradient(90% 75% at 50% 46%,rgba(9,13,15,.66) 0%,rgba(9,13,15,.42) 55%,rgba(9,13,15,.72) 100%)}
+.hero .copy{left:50%;right:auto;bottom:auto;top:50%;transform:translate(-50%,-50%);width:min(1100px,92vw);max-width:none;text-align:center;display:flex;flex-direction:column;align-items:center}
+.h-lockup{display:flex;align-items:center;justify-content:center;gap:clamp(4px,1.6vw,22px);width:100%;margin:clamp(6px,1.4vw,18px) 0 clamp(10px,1.8vw,24px)}
+.logo-3d{position:relative;display:flex;align-items:center;justify-content:center;z-index:2;width:38vw;height:20vw;max-width:440px;max-height:240px}
+.logo-3d canvas{background:transparent!important}
+.logo-3d .logo-flat{position:absolute;inset:12%;width:76%;height:76%;object-fit:contain;opacity:0;pointer-events:none;transition:opacity .6s ease}
+.logo-3d.logo3d-failed .logo-flat{opacity:.95}
+.hero-logo-vs .logo-flat{filter:brightness(0) invert(.78) sepia(1) saturate(2.2)}
+.logo-3d.logo3d-failed canvas{display:none}
+.h-x{font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(34px,3.4vw,52px);line-height:1;color:var(--paper);opacity:.85}
+.h-tagline{font-family:var(--serif);font-weight:700;font-size:clamp(26px,3.1vw,50px);line-height:1.12;letter-spacing:-.01em;max-width:24ch;text-wrap:balance}
+.h-tagline em{font-weight:400;font-style:italic;color:var(--frost)}
+.h-scroll{margin-top:clamp(22px,4vh,44px);display:flex;flex-direction:column;align-items:center;gap:10px;font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--faint)}
+.h-scroll i{display:block;width:1px;height:46px;background:linear-gradient(var(--paper),transparent);animation:cue 2.4s var(--ease) infinite;transform-origin:top}
+@keyframes cue{0%{transform:scaleY(0);opacity:1}60%{transform:scaleY(1);opacity:1}100%{transform:scaleY(1);opacity:0}}
 
 /* Delad skärm: eik | ask */
 .split .half{position:absolute;inset:0;overflow:hidden}
-.split .half--a .media{will-change:transform}
 .split .half--b{left:50%;will-change:clip-path}
 .split .seam{position:absolute;z-index:2;top:0;bottom:0;width:1px;background:rgba(238,240,236,.5);left:100%}
-.split .shade{background:linear-gradient(0deg,rgba(9,13,15,.6) 0%,rgba(9,13,15,0) 48%)}
-.split .copy{left:50%;transform:translateX(-50%);text-align:center;max-width:90vw}
+.split .shade{background:linear-gradient(0deg,rgba(9,13,15,.72) 0%,rgba(9,13,15,.2) 52%,rgba(9,13,15,0) 70%)}
+.split .copy{left:50%;transform:translateX(-50%);text-align:center;max-width:min(52rem,90vw);display:flex;flex-direction:column;align-items:center}
 .split .title{display:flex;align-items:baseline;justify-content:center;gap:.28em;flex-wrap:wrap}
 .split .title em{display:inline-block;margin:0}
 .split .sub{margin-inline:auto}
 
-.end .shade{background:radial-gradient(120% 90% at 50% 55%,rgba(9,13,15,.35) 0%,rgba(9,13,15,.8) 70%)}
-.end .copy{left:50%;bottom:auto;top:50%;transform:translate(-50%,-50%);text-align:center;max-width:min(46rem,88vw)}
-.end .sub{margin-inline:auto}
-
 @media (orientation: portrait), (max-width: 760px){
-  .shade{background:linear-gradient(180deg,rgba(9,13,15,.66) 0%,rgba(9,13,15,.24) 34%,rgba(9,13,15,0) 52%),
-                    linear-gradient(0deg,rgba(9,13,15,.5) 0%,rgba(9,13,15,0) 30%)}
+  .shade{background:linear-gradient(180deg,rgba(9,13,15,.74) 0%,rgba(9,13,15,.34) 38%,rgba(9,13,15,0) 56%),
+                    linear-gradient(0deg,rgba(9,13,15,.62) 0%,rgba(9,13,15,0) 32%)}
   .media img{object-position:var(--pos-p,50%) 50%}
-  .copy{top:calc(max(18px,env(safe-area-inset-top)) + 58px);bottom:calc(28px + env(safe-area-inset-bottom));left:20px;right:20px;max-width:none;display:flex;flex-direction:column;align-items:flex-start}
-  .title{font-size:clamp(42px,12.5vw,64px)}
+  .copy{top:calc(max(18px,env(safe-area-inset-top)) + 52px);bottom:calc(26px + env(safe-area-inset-bottom));left:20px;right:20px;max-width:none;display:flex;flex-direction:column;align-items:flex-start}
+  .title{font-size:clamp(40px,11.5vw,60px)}
   .sub{font-size:15px}
+  .tags{display:none}
   .cta{margin-top:auto}
-  .giant{font-size:46vw;bottom:auto;top:44%}
+  .giant{font-size:46vw;bottom:auto;top:46%}
   .rail{display:none}
   .brand{left:20px}
   .split .copy{left:20px;right:20px;transform:none;align-items:center;text-align:center}
   .split .seam{display:none}
   .split .half--b{left:0;top:50%}
-  .end .copy{top:50%;bottom:auto;left:50%;right:auto;width:calc(100% - 40px);align-items:center}
-  .end .cta{margin-top:28px}
+  .split .shade{background:linear-gradient(180deg,rgba(9,13,15,.78) 0%,rgba(9,13,15,.3) 40%,rgba(9,13,15,0) 55%),linear-gradient(0deg,rgba(9,13,15,.6) 0%,rgba(9,13,15,0) 30%)}
+  .hero .copy{top:50%;bottom:auto;left:50%;right:auto;width:calc(100% - 40px);transform:translate(-50%,-50%)}
+  .h-lockup{flex-direction:column;gap:0}
+  .logo-3d{width:72vw;height:24vw;max-width:300px;max-height:120px}
+  .h-x{font-size:26px;line-height:1}
+  .h-tagline{font-size:clamp(25px,7.2vw,34px)}
+}
+
+/* ============ ERBJUDANDET: vanligt flöde som stiger upp över scenen ============ */
+#offer{position:relative;z-index:35;background:var(--ink);box-shadow:0 -40px 80px rgba(5,8,10,.55)}
+.sec{padding:clamp(88px,14vh,160px) var(--gutter)}
+.sec + .sec{border-top:1px solid var(--line)}
+.sec-inner{max-width:1180px;margin:0 auto}
+.lbl{font-size:12px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--frost);margin-bottom:22px}
+.h2{font-family:var(--serif);font-weight:800;font-size:clamp(38px,5vw,78px);line-height:1.02;letter-spacing:-.02em;text-wrap:balance}
+.h2 em{font-weight:400;font-style:italic;color:var(--frost)}
+.rv{opacity:0;transform:translate3d(0,40px,0);transition:opacity 1s var(--ease),transform 1.1s var(--ease)}
+.rv.in{opacity:1;transform:none}
+.price-grid>.pkg-col.rv{--entry:60px;transform:rotateY(var(--rot)) translate3d(0,calc(var(--lift) + var(--entry)),0) scale(var(--sc))}
+.price-grid>.pkg-col.rv.in{--entry:0px}
+.d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}
+
+/* Mediakit: rubriken följer med, tre kort staplade */
+.kit{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:clamp(40px,7vw,120px);align-items:start}
+.kit-head{position:sticky;top:clamp(90px,16vh,150px)}
+.stats{display:grid;gap:18px}
+.sc{position:relative;overflow:hidden;padding:clamp(28px,3vw,40px);border-radius:26px;background:var(--ink-2);border:1px solid var(--line)}
+.sc-bg{position:absolute;right:-.06em;bottom:-.28em;font-family:var(--serif);font-weight:900;font-size:clamp(130px,14vw,200px);line-height:1;color:rgba(238,240,236,.045);pointer-events:none}
+.sc-num{display:block;font-family:var(--serif);font-weight:800;font-size:clamp(44px,5vw,72px);line-height:1;letter-spacing:-.02em}
+.sc-num.txt{font-size:clamp(34px,3.6vw,52px)}
+.sc-num small{font-size:.42em;font-family:var(--sans);font-weight:500;letter-spacing:0;color:var(--muted);margin-left:.3em}
+.sc-sub{margin-top:14px;color:var(--muted);font-size:16px}
+.sc-lbl{margin-top:20px;font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--frost)}
+
+/* Paket */
+.pr-head{text-align:center;max-width:760px;margin:0 auto}
+.price-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:32px;margin:64px auto 0;max-width:860px;perspective:1800px;perspective-origin:50% 45%}
+.pkg-col{--rot:0deg;--sc:1;--lift:0px;--entry:0px;display:flex;flex-direction:column;gap:14px;transform-style:preserve-3d;
+  transform:rotateY(var(--rot)) translate3d(0,var(--lift),0) scale(var(--sc));transition:transform 1s var(--ease),opacity 1s var(--ease)}
+.price-grid>.pkg-col:first-child{--rot:11deg}
+.price-grid>.pkg-col:last-child{--rot:-11deg}
+.price-grid>.pkg-col:not(.featured){--sc:.9}
+.price-grid>.pkg-col.featured{z-index:2}
+.pkg-col:hover{--rot:0deg!important;--lift:-8px}
+.price-box{position:relative;overflow:hidden;padding:44px 34px 36px;border-radius:26px;background:linear-gradient(180deg,#172126 0%,#111a1e 100%);border:1px solid var(--line);box-shadow:0 30px 70px rgba(3,6,8,.45)}
+.price-box.featured{border-color:rgba(185,204,212,.42);background:linear-gradient(180deg,#1b282e 0%,#121c20 100%)}
+.price-box .pr-n{position:absolute;right:18px;top:6px;font-family:var(--serif);font-weight:900;font-size:120px;line-height:1;color:rgba(238,240,236,.04);pointer-events:none}
+.price-ribbon{position:absolute;top:0;left:50%;transform:translateX(-50%);background:var(--frost);color:var(--ink);font-size:10px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;padding:7px 16px;border-radius:0 0 12px 12px;white-space:nowrap}
+.price-title{font-family:var(--serif);font-weight:800;font-size:clamp(28px,2.6vw,36px);letter-spacing:-.01em;margin-top:6px}
+.price-sub{margin-top:8px;color:var(--muted);font-size:15px}
+.price-plate{margin:26px 0 24px;padding:22px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.price-total-lbl{font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--faint)}
+.price-orig{margin-top:10px;font-size:15px;color:var(--faint);position:relative;display:inline-block}
+.price-orig::after{content:'';position:absolute;left:-2px;right:-2px;top:52%;height:1px;background:rgba(238,240,236,.55)}
+.price-row{display:flex;align-items:baseline;gap:10px;margin-top:6px}
+.price-total{font-family:var(--serif);font-weight:800;font-size:clamp(46px,4.6vw,66px);line-height:1;letter-spacing:-.02em;font-variant-numeric:lining-nums tabular-nums}
+.price-total.pulse{animation:pulse .7s var(--ease)}
+@keyframes pulse{40%{color:var(--frost);transform:scale(1.03)}}
+.price-unit{font-size:14px;font-weight:600;letter-spacing:.16em;color:var(--muted)}
+.price-includes{display:grid;gap:12px}
+.pi{position:relative;padding-left:22px;font-size:15px;line-height:1.5;color:var(--muted)}
+.pi::before{content:'';position:absolute;left:0;top:.62em;width:10px;height:1px;background:var(--frost)}
+.pi.hi{color:var(--paper)}
+.pi em{font-style:italic;font-family:var(--serif);color:var(--frost)}
+.price-note{margin:44px auto 0;max-width:620px;text-align:center;color:var(--muted);font-size:15px;line-height:1.6}
+
+/* Reach boost per paket */
+.pkg-boost{border-radius:20px;background:rgba(238,240,236,.04);border:1px solid var(--line);transition:border-color .4s,background .4s}
+.pkg-boost[aria-pressed="true"]{border-color:rgba(185,204,212,.5);background:rgba(185,204,212,.08)}
+.pkg-boost-head{display:flex;align-items:center;gap:14px;width:100%;padding:16px 18px;background:none;border:0;cursor:pointer;text-align:left}
+.pkg-boost-switch{flex:none;position:relative;width:42px;height:24px;border-radius:999px;background:rgba(238,240,236,.16);transition:background .4s var(--ease)}
+.pkg-boost-switch::after{content:'';position:absolute;left:3px;top:3px;width:18px;height:18px;border-radius:50%;background:var(--paper);transition:transform .45s var(--ease)}
+.pkg-boost[aria-pressed="true"] .pkg-boost-switch{background:var(--frost)}
+.pkg-boost[aria-pressed="true"] .pkg-boost-switch::after{transform:translateX(18px);background:var(--ink)}
+.pkg-boost-tag{display:block;font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--faint)}
+.pkg-boost-tag em{font-style:normal;color:var(--frost)}
+.pkg-boost-title{display:block;margin-top:3px;font-size:15px;font-weight:600}
+.pkg-boost-price{color:var(--frost);margin-left:6px;font-variant-numeric:tabular-nums}
+.pkg-boost-body{display:grid;grid-template-rows:0fr;transition:grid-template-rows .6s var(--ease)}
+.pkg-boost[aria-pressed="true"] .pkg-boost-body{grid-template-rows:1fr}
+.pkg-boost-body-inner{overflow:hidden;padding:0 18px}
+.pkg-boost[aria-pressed="true"] .pkg-boost-body-inner{padding-bottom:18px}
+.pkg-boost-desc{font-size:14px;line-height:1.55;color:var(--muted)}
+.pkg-boost-desc strong{color:var(--paper);font-weight:600}
+.pkg-boost-desc a{text-decoration:none;border-bottom:1px solid rgba(185,204,212,.6)}
+.pkg-slider{margin-top:14px}
+.pkg-slider-lbl{display:block;font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);margin-bottom:10px}
+.pkg-range{-webkit-appearance:none;appearance:none;width:100%;height:4px;border-radius:4px;background:linear-gradient(90deg,var(--frost) var(--fill,66%),rgba(238,240,236,.16) var(--fill,66%));outline-offset:6px}
+.pkg-range::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:var(--paper);border:0;box-shadow:0 2px 10px rgba(0,0,0,.4);cursor:pointer}
+.pkg-range::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:var(--paper);border:0;cursor:pointer}
+.pkg-ticks{display:flex;justify-content:space-between;margin-top:10px;font-size:12px;color:var(--faint);font-variant-numeric:tabular-nums}
+.pkg-ticks span.on{color:var(--paper);font-weight:600}
+
+/* Möte */
+.cta-sec{text-align:center;padding-bottom:clamp(70px,10vh,120px)}
+.cta-h{font-family:var(--serif);font-weight:800;font-size:clamp(46px,7vw,112px);line-height:.98;letter-spacing:-.02em}
+.cta-h em{display:block;font-weight:400;font-style:italic;color:var(--frost);font-size:.8em}
+.cta-btns{margin-top:44px;display:flex;justify-content:center;flex-wrap:wrap;gap:14px}
+.btn-ghost{display:inline-flex;align-items:center;padding:0 26px;height:56px;border-radius:999px;border:1px solid rgba(238,240,236,.32);text-decoration:none;font-weight:600;font-size:16px;transition:border-color .3s,background .3s}
+.btn-ghost:hover{border-color:var(--paper);background:rgba(238,240,236,.06)}
+.cta-btns .cta{margin-top:0;order:-1}
+.contact{margin-top:72px;display:flex;flex-direction:column;align-items:center;gap:6px;color:var(--muted);font-size:15px;line-height:1.6}
+.contact img{width:auto;height:64px;margin-bottom:12px;opacity:.9;filter:brightness(0) invert(.94)}
+.contact .nm{font-family:var(--serif);font-weight:700;font-size:20px;color:var(--paper)}
+.contact a{text-decoration:none;border-bottom:1px solid rgba(238,240,236,.25)}
+
+/* Bokning */
+.bk-panel{display:grid;grid-template-rows:0fr;transition:grid-template-rows .7s var(--ease);max-width:620px;margin:0 auto;text-align:left}
+.bk-panel.open{grid-template-rows:1fr}
+.bk-clip{overflow:hidden}
+.bk-card{margin-top:36px;padding:30px;border-radius:26px;background:var(--ink-2);border:1px solid var(--line)}
+.bk-head{display:flex;justify-content:space-between;align-items:center}
+.bk-title{font-family:var(--serif);font-weight:800;font-size:26px}
+.bk-title em{font-weight:400;font-style:italic;color:var(--frost)}
+.bk-close{width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:none;cursor:pointer;font-size:20px}
+.bk-steps{display:flex;gap:10px;align-items:center;margin:22px 0;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
+.bk-step.active{color:var(--paper)}.bk-step.done{color:var(--frost)}
+.bk-sep{flex:1;height:1px;background:var(--line)}
+.bk-stage{display:none}.bk-stage.active{display:block;animation:stIn .5s var(--ease)}
+@keyframes stIn{from{opacity:0;transform:translateX(14px)}}
+.bk-stage h3{font-family:var(--serif);font-size:22px;font-weight:700}
+.bk-stage h3 em{font-style:italic;font-weight:400;color:var(--frost)}
+.bk-sub{margin-top:6px;color:var(--muted);font-size:14px}
+.bk-cal-head{display:flex;justify-content:space-between;align-items:center;margin:20px 0 12px}
+.bk-cal-month{font-weight:600}
+.bk-cal-btn{width:36px;height:36px;border-radius:50%;border:1px solid var(--line);background:none;cursor:pointer}
+.bk-cal-btn:disabled{opacity:.3;cursor:default}
+.bk-cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+.bk-cal-hdr{text-align:center;font-size:11px;color:var(--faint);padding:4px 0}
+.bk-cal-day{aspect-ratio:1;border-radius:12px;border:1px solid transparent;background:rgba(238,240,236,.05);cursor:pointer;font-variant-numeric:tabular-nums}
+.bk-cal-day.empty{background:none}
+.bk-cal-day:disabled{opacity:.25;cursor:default}
+.bk-cal-day.today{border-color:var(--line)}
+.bk-cal-day.selected{background:var(--paper);color:var(--ink);font-weight:700}
+.bk-slots{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:16px}
+.bk-slot{height:46px;border-radius:12px;border:1px solid var(--line);background:none;cursor:pointer;font-variant-numeric:tabular-nums}
+.bk-slot.selected{background:var(--paper);color:var(--ink);font-weight:700}
+.bk-sel-date{margin-top:14px;font-weight:600}
+.bk-summary{margin-top:12px;color:var(--muted);font-size:14px}
+.bk-summary b{color:var(--paper)}
+.bk-form{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}
+.bk-field{display:flex;flex-direction:column;gap:6px}
+.bk-full{grid-column:1/-1}
+.bk-field label{font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--faint)}
+.bk-field input,.bk-field textarea{font:inherit;color:var(--paper);background:rgba(238,240,236,.05);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.bk-field textarea{min-height:96px;resize:vertical}
+.bk-field.err input{border-color:#e08a7a}
+.bk-error{margin-top:12px;color:#e8a294;font-size:14px}
+.bk-nav{display:flex;justify-content:space-between;gap:12px;margin-top:22px;padding-top:18px;border-top:1px solid var(--line)}
+.bk-btn{height:46px;padding:0 22px;border-radius:999px;cursor:pointer;font-weight:600}
+.bk-btn.ghost{background:none;border:1px solid var(--line)}
+.bk-btn.primary{background:var(--paper);color:var(--ink);border:0}
+.bk-btn:disabled{opacity:.35;cursor:default}
+.bk-done{text-align:center;padding:16px 0}
+.bk-done-icon{width:56px;height:56px;margin:0 auto 16px;display:grid;place-items:center;border-radius:50%;background:var(--frost);color:var(--ink);font-size:24px;font-weight:700}
+.bk-done p{margin-top:10px;color:var(--muted)}
+
+@media (max-width: 860px){
+  .kit{grid-template-columns:1fr}
+  .kit-head{position:static}
+  .price-grid{grid-template-columns:minmax(0,1fr);perspective:none;max-width:520px}
+  .price-grid>.pkg-col,.price-grid>.pkg-col:first-child,.price-grid>.pkg-col:last-child{--rot:0deg!important;--sc:1}
+  .price-grid>.pkg-col.featured{order:-1}
+  .price-box{padding:40px 24px 30px}
+  .bk-card{padding:22px 18px}
+  .bk-form{grid-template-columns:1fr}
+  .bk-slots{grid-template-columns:repeat(3,1fr)}
+}
+@media (prefers-reduced-motion: reduce){
+  .rv{opacity:1;transform:none;transition:none}
+  .h-scroll i{animation:none}
 }
 </style>
 </head>
 <body>
 
-<a class="brand" href="#" aria-label="GJONA, Design of Norway"><b>GJONA</b><i>of Norway</i></a>
+<a class="brand" href="#" aria-label="Gjona and Villa Sjövik"><b>GJONA</b><i>× Villa Sjövik</i></a>
 <div class="rail" aria-hidden="true"><i id="railfill"></i></div>
 <div id="stage"></div>
 <div id="track" aria-hidden="true"></div>
 
-<noscript><p style="padding:40px">GJONA: spisebord og sofabord i heltre eik og ask. <a href="https://www.gjona.no/side/kontakt_oss">Få et tilbud</a></p></noscript>
+<main id="offer">
+
+  <!-- MEDIAKIT -->
+  <section class="sec" id="sec-profil" aria-label="Media kit">
+    <div class="sec-inner kit">
+      <div class="kit-head">
+        <p class="lbl rv">Media kit</p>
+        <h2 class="h2 rv d1">Inspiration for an audience that invests in <em>home and garden.</em></h2>
+      </div>
+      <div class="stats" lang="en">
+        <div class="sc rv d1">
+          <div class="sc-bg" aria-hidden="true">206</div>
+          <span class="sc-num"><span class="cu" data-v="206000">206 000</span></span>
+          <p class="sc-sub">168k Instagram &middot; 38k Facebook</p>
+          <p class="sc-lbl">Followers in total</p>
+        </div>
+        <div class="sc rv d2">
+          <div class="sc-bg" aria-hidden="true">&amp;</div>
+          <span class="sc-num txt">Home &amp; garden</span>
+          <p class="sc-sub">Premium &middot; Interiors &middot; Garden &middot; Design</p>
+          <p class="sc-lbl">Niche &amp; audience</p>
+        </div>
+        <div class="sc rv d3">
+          <div class="sc-bg" aria-hidden="true">95</div>
+          <span class="sc-num"><span class="cu" data-v="95">95</span>%<small>women</small></span>
+          <p class="sc-sub">77.4% aged 45 or over</p>
+          <p class="sc-lbl">Instagram audience</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PAKET -->
+  <section class="sec" id="sec-pr" aria-label="Collaboration overview">
+    <div class="sec-inner">
+      <div class="pr-head">
+        <p class="lbl rv">Collaboration overview</p>
+        <h2 class="h2 rv d1">Two ways to build <em>story and reach.</em></h2>
+      </div>
+
+      <div class="price-grid">
+
+        <div class="pkg-col rv d1" data-pkg-col="start">
+          <div class="pkg-boost" aria-pressed="false" data-pkg="start">
+            <button type="button" class="pkg-boost-head" aria-pressed="false" aria-controls="pkg-boost-body-start" aria-label="Activate Meta reach for Video Pack">
+              <span class="pkg-boost-switch" aria-hidden="true"></span>
+              <span>
+                <span class="pkg-boost-tag">Optional &middot; <em>Reach Boost</em></span>
+                <span class="pkg-boost-title">Meta reach budget<span class="pkg-boost-price" data-bt-price="start">+10 000 NOK</span></span>
+              </span>
+            </button>
+            <div class="pkg-boost-body" id="pkg-boost-body-start" aria-hidden="true">
+              <div class="pkg-boost-body-inner">
+                <p class="pkg-boost-desc" data-pkg-desc="start">Over <strong data-bt-stat="start">150 000</strong> extra impressions. Meta retargeting brings viewers back with a clickable link on the video in Instagram and Facebook, directing traffic to <a href="https://www.gjona.no" target="_blank" rel="noopener">your website</a>.</p>
+                <p class="pkg-boost-desc" data-pkg-desc-zero="start" hidden>Choose a budget below to see how many extra impressions the package delivers.</p>
+                <div class="pkg-slider">
+                  <label class="pkg-slider-lbl" for="pk-range-start">Meta budget per production</label>
+                  <input id="pk-range-start" class="pkg-range" type="range" min="0" max="3" step="1" value="2" data-pkg-slider="start" aria-label="Meta budget per production for Video Pack">
+                  <div class="pkg-ticks" aria-hidden="true" data-ticks="start"><span>0 NOK</span><span>5 000</span><span class="on">10 000</span><span>20 000</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="price-box" data-pkg-box="start">
+            <i class="pr-n" aria-hidden="true">01</i>
+            <h3 class="price-title">Video Pack</h3>
+            <p class="price-sub">1 video &middot; 2 stories with CTA &middot; 10 lifestyle images</p>
+            <div class="price-plate">
+              <p class="price-total-lbl">Production fee</p>
+              <div class="price-row"><p class="price-total" data-base="18300">18 300</p><span class="price-unit">NOK</span></div>
+            </div>
+            <div class="price-includes">
+              <p class="pi hi">1 video published in Villa Sjövik's channels <em>for 206,000 followers</em></p>
+              <p class="pi hi">2 stories on Villa Sjövik's channels with direct link and CTA</p>
+              <p class="pi hi">10 product and lifestyle images for your own channels and website</p>
+              <p class="pi">Full, permanent usage rights to all delivered photos and videos for your own channels, website and paid advertising.</p>
+              <p class="pi">Concept and schedule approved with Gjona; styling, filming and editing included</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="pkg-col featured rv d2" data-pkg-col="season">
+          <div class="pkg-boost" aria-pressed="false" data-pkg="season">
+            <button type="button" class="pkg-boost-head" aria-pressed="false" aria-controls="pkg-boost-body-season" aria-label="Activate Meta reach for Campaign Package">
+              <span class="pkg-boost-switch" aria-hidden="true"></span>
+              <span>
+                <span class="pkg-boost-tag">Optional &middot; <em>Reach Boost</em></span>
+                <span class="pkg-boost-title">Meta reach budget<span class="pkg-boost-price" data-bt-price="season">+30 000 NOK</span></span>
+              </span>
+            </button>
+            <div class="pkg-boost-body" id="pkg-boost-body-season" aria-hidden="true">
+              <div class="pkg-boost-body-inner">
+                <p class="pkg-boost-desc" data-pkg-desc="season">All three productions receive retargeting. The videos are shown again to previous viewers, adding over <strong data-bt-stat="season">450 000</strong> impressions with clickable links to <a href="https://www.gjona.no" target="_blank" rel="noopener">your website</a>.</p>
+                <p class="pkg-boost-desc" data-pkg-desc-zero="season" hidden>Choose a budget below to see how many extra impressions the package delivers.</p>
+                <div class="pkg-slider">
+                  <label class="pkg-slider-lbl" for="pk-range-season">Meta budget per production</label>
+                  <input id="pk-range-season" class="pkg-range" type="range" min="0" max="3" step="1" value="2" data-pkg-slider="season" aria-label="Meta budget per production for Campaign Package">
+                  <div class="pkg-ticks" aria-hidden="true" data-ticks="season"><span>0 NOK</span><span>5 000</span><span class="on">10 000</span><span>20 000</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="price-box featured" data-pkg-box="season">
+            <i class="pr-n" aria-hidden="true">02</i>
+            <span class="price-ribbon">Recommended &middot; Best value</span>
+            <h3 class="price-title">Campaign Package</h3>
+            <p class="price-sub">3 videos &middot; 6 stories with CTA &middot; 60 lifestyle images</p>
+            <div class="price-plate">
+              <p class="price-total-lbl">Production fee</p>
+              <p class="price-orig" data-base="54900">reg. 54 900 NOK</p>
+              <div class="price-row"><p class="price-total" data-base="38600">38 600</p><span class="price-unit">NOK</span></div>
+            </div>
+            <div class="price-includes">
+              <p class="pi hi">3 videos published in Villa Sjövik's channels <em>for 206,000 followers</em></p>
+              <p class="pi hi">6 stories on Villa Sjövik's channels with direct link and CTA</p>
+              <p class="pi hi">60 product and lifestyle images for your own channels and website</p>
+              <p class="pi">Full, permanent usage rights to all delivered photos and videos for your own channels, website and paid advertising.</p>
+              <p class="pi">Concept and schedule approved with Gjona; styling, filming and editing included</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <p class="price-note rv">Products are sent to Villa Sjövik and stay in the home after the production. Products are provided in addition to the production fee.</p>
+    </div>
+  </section>
+
+  <!-- MÖTE -->
+  <section class="sec cta-sec" id="sec-cta" aria-label="Book a meeting">
+    <div class="sec-inner">
+      <p class="lbl rv">What happens next?</p>
+      <h2 class="cta-h rv d1">Let's set up <em>a meeting.</em></h2>
+      <div class="cta-btns rv d2">
+        <a class="btn-ghost" href="mailto:kontakt@villasjovik.se?subject=Gjona%20%C3%97%20Villa%20Sj%C3%B6vik%20-%20Collaboration%202026">Send email →</a>
+        <button class="cta" type="button" id="bk-open" aria-expanded="false" aria-controls="bk-panel">Book a meeting<span class="arrow" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 8h11M9 4l4 4-4 4"/></svg></span></button>
+      </div>
+
+      <div class="bk-panel" id="bk-panel" role="region" aria-label="Booking flow" aria-hidden="true">
+        <div class="bk-clip"><div class="bk-card">
+          <div class="bk-head">
+            <h3 class="bk-title">Book a <em>digital meeting</em></h3>
+            <button class="bk-close" type="button" id="bk-close" aria-label="Close">×</button>
+          </div>
+          <div class="bk-steps">
+            <span class="bk-step active" data-step="1">Date</span><span class="bk-sep"></span>
+            <span class="bk-step" data-step="2">Time</span><span class="bk-sep"></span>
+            <span class="bk-step" data-step="3">Details</span>
+          </div>
+
+          <div class="bk-stage active" data-stage="1">
+            <h3>Choose a date</h3>
+            <p class="bk-sub">Digital meeting via Google Meet — 30 min. A link is sent with the confirmation.</p>
+            <div class="bk-cal-head">
+              <span class="bk-cal-month" id="bk-cal-month"></span>
+              <div>
+                <button class="bk-cal-btn" type="button" id="bk-cal-prev" aria-label="Previous month">‹</button>
+                <button class="bk-cal-btn" type="button" id="bk-cal-next" aria-label="Next month">›</button>
+              </div>
+            </div>
+            <div class="bk-cal-grid" id="bk-cal-grid"></div>
+            <div class="bk-nav">
+              <button class="bk-btn ghost" type="button" id="bk-cancel">Cancel</button>
+              <button class="bk-btn primary" type="button" id="bk-to-time" disabled>Choose time →</button>
+            </div>
+          </div>
+
+          <div class="bk-stage" data-stage="2">
+            <h3>Choose a time</h3>
+            <p class="bk-sub">All times use the Europe/Stockholm time zone (CET/CEST), the same as Norwegian time.</p>
+            <div class="bk-sel-date" id="bk-sel-date"></div>
+            <div class="bk-slots" id="bk-slots">
+              <button class="bk-slot" type="button" data-time="09:00">09:00</button>
+              <button class="bk-slot" type="button" data-time="10:00">10:00</button>
+              <button class="bk-slot" type="button" data-time="11:00">11:00</button>
+              <button class="bk-slot" type="button" data-time="13:00">13:00</button>
+              <button class="bk-slot" type="button" data-time="14:00">14:00</button>
+              <button class="bk-slot" type="button" data-time="15:00">15:00</button>
+              <button class="bk-slot" type="button" data-time="16:00">16:00</button>
+              <button class="bk-slot" type="button" data-time="17:00">17:00</button>
+            </div>
+            <div class="bk-nav">
+              <button class="bk-btn ghost" type="button" data-back="1">← Back</button>
+              <button class="bk-btn primary" type="button" id="bk-to-form" disabled>Continue →</button>
+            </div>
+          </div>
+
+          <div class="bk-stage" data-stage="3">
+            <h3>Your details</h3>
+            <p class="bk-sub">We will confirm the booking within 24h.</p>
+            <div class="bk-summary" id="bk-summary"></div>
+            <div class="bk-error" id="bk-err" hidden></div>
+            <form class="bk-form" id="bk-form" novalidate>
+              <div class="bk-field"><label for="bk-name">Name</label><input type="text" id="bk-name" name="name" placeholder="First and last name" required autocomplete="name"></div>
+              <div class="bk-field"><label for="bk-email">Email</label><input type="email" id="bk-email" name="email" placeholder="name@company.com" required autocomplete="email"></div>
+              <div class="bk-field bk-full"><label for="bk-msg">Anything to share before the meeting? (optional)</label><textarea id="bk-msg" name="message" placeholder="Any thoughts, questions or requests — otherwise we can cover it in the meeting."></textarea></div>
+            </form>
+            <div class="bk-nav">
+              <button class="bk-btn ghost" type="button" data-back="2">← Back</button>
+              <button class="bk-btn primary" type="button" id="bk-submit">Send booking →</button>
+            </div>
+          </div>
+
+          <div class="bk-stage" data-stage="4">
+            <div class="bk-done">
+              <div class="bk-done-icon" aria-hidden="true">✓</div>
+              <h3>Thank you — <em>your booking has been sent.</em></h3>
+              <p id="bk-done-text">We will reply within 24h with a calendar invitation and confirmation.</p>
+            </div>
+            <div class="bk-nav" style="justify-content:center;border-top:0">
+              <button class="bk-btn ghost" type="button" id="bk-done-close">Close</button>
+            </div>
+          </div>
+        </div></div>
+      </div>
+
+      <div class="contact rv">
+        <img src="villasjovik.svg" alt="Villa Sjövik" loading="lazy" decoding="async">
+        <p class="nm">Carin Norberg</p>
+        <p>Designer &middot; Villa Sjövik<br>
+          <a href="mailto:kontakt@villasjovik.se">kontakt@villasjovik.se</a><br>
+          070&ndash;65 66 596<br>
+          <a href="https://www.villasjovik.se" target="_blank" rel="noopener">www.villasjovik.se</a> &middot;
+          <a href="https://www.instagram.com/villasjovik/" target="_blank" rel="noopener">@villasjovik</a></p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<noscript><p style="padding:40px">Gjona × Villa Sjövik — collaboration proposal 2026. <a href="mailto:kontakt@villasjovik.se">kontakt@villasjovik.se</a></p></noscript>
 
 <script>
-/* ---------- innehåll ---------- */
-const CTA = 'https://www.gjona.no/side/kontakt_oss';
-const FRAMES_READY = true;             // sätts true när ljusrutorna (img/ljus/) finns
+/* ---------- innehåll: skrollscenen ---------- */
 const FRAME_KEYS = ['k1','k2','k3','k4'];
+const G = 'https://www.gjona.no/produkt/';
 const PANELS = [
-  { id:'fiskeben', img:'01-fiskeben', frames:'01-fiskeben', hold:2.2, pos:'50%', posP:'30%', giant:'Fiskeben', h1:true,
-    t1:'Heltre,', t2:'laget på mål.', sub:'Spisebord og sofabord i heltre eik og ask.', alt:'Spisebord i lys eik med fiskebensmønster i en stue med utsikt mot fjorden' },
-  { id:'kvitholm', img:'02-kvitholm', hold:.9, pos:'75%', posP:'55%', giant:'Kvitholm',
-    t1:'Kvitholm', t2:'fra 120 til 500 cm.', alt:'Kvitholm spisebord i lys eik med X-ben i stål' },
-  { id:'expoborg', img:'06-expoborg', hold:.9, pos:'70%', posP:'55%', giant:'Expo Borg',
-    t1:'Expo Borg', t2:'rund, med uttrekk.', alt:'Rundt spisebord i eik med uttrekk på et kjøkken' },
-  { id:'tripod', img:'03-tripod', frames:'03-tripod', hold:2.2, pos:'80%', posP:'55%', giant:'Tripod',
-    t1:'Tripod', t2:'rustikk eik, helstav.', alt:'Rundt sofabord i rustikk eik foran en peis' },
-  { id:'fiskebensofa', img:'07-fiskebensofa', hold:.9, pos:'65%', posP:'50%', giant:'Fiskeben',
-    t1:'Fiskeben', t2:'også som sofabord.', alt:'Kvadratisk sofabord i lys eik med fiskebensmønster' },
+  { id:'hero', img:'02-kvitholm', hero:true, hold:.7, pos:'60%', posP:'55%',
+    alt:'Kvitholm dining table in light oak with steel legs' },
+  { id:'fiskeben', frames:'01-fiskeben', hold:2.2, pos:'50%', posP:'30%', giant:'Fiskeben',
+    eyebrow:'Route 01 <b>· Fiskeben</b>', t1:'Fiskeben,', t2:'into the evening.',
+    sub:`One video follows the <a href="${G}spisebord/spisebord-eik-fiskeben-hvitpigmentert-voksoljet-2000-mm" target="_blank" rel="noopener">Fiskeben dining table</a> from afternoon light to candlelight at Villa Sjövik, so the herringbone becomes the detail people remember Gjona by.`,
+    tags:'Brand recognition · Signature piece', alt:'Herringbone dining table in light oak in a living room overlooking a fjord' },
+  { id:'expoborg', img:'06-expoborg', hold:1, pos:'70%', posP:'55%', giant:'Expo Borg',
+    eyebrow:'Route 02 <b>· Expo Borg</b>', t1:'Expo Borg,', t2:'room for one more.',
+    sub:`The round <a href="${G}spisebord/expo-spisebord-rundt-eik-heltre-m-uttrekk-o1100-mm" target="_blank" rel="noopener">Expo Borg</a> filmed through a real dinner at Villa Sjövik: set for four, extended when more guests arrive. An everyday way into Gjona's dining tables.`,
+    tags:'Purchase intent · Product discovery', alt:'Round oak dining table with extension in a kitchen' },
+  { id:'tripod', frames:'03-tripod', hold:2.2, pos:'80%', posP:'55%', giant:'Tripod',
+    eyebrow:'Route 03 <b>· Tripod</b>', t1:'Tripod,', t2:'by the fire.',
+    sub:`The <a href="${G}sofabord-salongbord/gjona-sofabord-eik-tripod-heltre-helstav-rustikk-o90-30-ved-bestilling-i-juli" target="_blank" rel="noopener">Tripod coffee table</a> in rustic oak at the centre of a slow evening by the fireplace, from the first flames until the room glows. A living room story that gives Tripod a place in people's evenings.`,
+    tags:'Living room · Qualified traffic', alt:'Round coffee table in rustic oak in front of a fireplace' },
   { id:'treslag', split:['09-eik','10-ask'], hold:1.6,
-    t1:'Eik', t2:'eller ask.', sub:'Og andre tresorter etter ønske.', alt:['Nærbilde av oljet eik','Nærbilde av lys ask'] },
-  { id:'monolith', img:'04-monolith', hold:.9, pos:'60%', posP:'60%', giant:'Monolith',
-    t1:'Log Monolith', t2:'for hytta.', alt:'Massivt spisebord av brede eikeplanker med kryssben i en hytte' },
-  { id:'organisk', img:'08-organisk', hold:.9, pos:'65%', posP:'55%', giant:'Organisk',
-    t1:'Organisk kant', t2:'200, 250 eller 300 cm.', alt:'Spisebord av eikeplank med naturlig kant ved store vinduer' },
-  { id:'verksted', img:'11-verksted', hold:.9, pos:'60%', posP:'55%',
-    t1:'På bestilling,', t2:'produsert i Norge.', alt:'Hender som måler en bordplate i eik med tommestokk i et verksted' },
-  { id:'kontakt', img:'05-detalj', hold:.6, end:true, pos:'62%', posP:'70%',
-    t1:'Ditt bord,', t2:'for generasjoner.', sub:'Vi leverer over hele Norge.', alt:'Nærbilde av fiskebensmønster i oljet eik' }
+    eyebrow:'Route 04 <b>· Your setup</b>', t1:'Oak', t2:'or ash. Your call.',
+    sub:'The fourth route is open: another table, another wood or a campaign goal of your own. Tell Villa Sjövik what would support Gjona right now.',
+    tags:'Your priorities · Your idea · Your goal', alt:['Close-up of oiled oak','Close-up of light ash'] },
+  { id:'verksted', img:'11-verksted', hold:1.1, pos:'60%', posP:'55%',
+    eyebrow:'How the collaboration works', t1:'Made to measure,', t2:'filmed at Villa Sjövik.',
+    sub:'Gjona sends the agreed products and joins a short meeting about product priorities and the campaign goal. The concept and schedule are approved by Gjona. Villa Sjövik handles styling, photography, filming and editing.',
+    alt:'Hands measuring a solid oak table top with a folding rule in a workshop' }
 ];
 
 /* ---------- uppbyggnad ---------- */
@@ -156,26 +579,46 @@ const arrow = '<span class="arrow" aria-hidden="true"><svg viewBox="0 0 16 16" f
 const pic = (base, alt, cls = '', eager = false) =>
   `<picture class="${cls}"><source media="(orientation: portrait)" srcset="img/${base}-staende.jpg"><img src="img/${base}-liggande.jpg" alt="${alt}" decoding="async"${eager ? ' fetchpriority="high"' : ''}></picture>`;
 const stage = document.getElementById('stage');
+const heroCopy = `<div class="copy" data-copy>
+  <p class="eyebrow line"><span>Collaboration proposal · 2026</span></p>
+  <div class="h-lockup">
+    <div class="logo-3d hero-logo-brand" role="img" aria-label="Gjona" data-svg="./gjona.svg" data-fallback="./gjona.svg"
+      data-tone="neutral" data-material="metal" data-color="#eef0ec" data-motion="float-spin" data-rotate-speed="0.3"
+      data-bevel-depth="6" data-sparks="true" data-shadow="true" data-delay="0" data-nudge-x="-12">
+      <img class="logo-flat" src="./gjona.svg" alt="" aria-hidden="true">
+    </div>
+    <span class="h-x">×</span>
+    <div class="logo-3d hero-logo-vs" role="img" aria-label="Villa Sjövik" data-svg="./villasjovik.svg" data-fallback="./villasjovik.svg"
+      data-material="gold" data-motion="float-spin" data-rotate-speed="0.3" data-bevel-depth="18" data-sparks="true"
+      data-shadow="true" data-delay="0.15" data-nudge-x="12">
+      <img class="logo-flat" src="./villasjovik.svg" alt="" aria-hidden="true">
+    </div>
+  </div>
+  <h1 class="h-tagline line"><span>Gjona's solid wood tables at Villa Sjövik, for <em>206,000 followers</em> who invest in their homes.</span></h1>
+  <div class="h-scroll" data-rest aria-hidden="true"><span>Explore</span><i></i></div>
+</div>`;
 PANELS.forEach((p, i) => {
   const s = document.createElement('section');
-  s.className = 'panel' + (p.split ? ' split' : '') + (p.end ? ' end' : '');
-  s.id = p.id; s.setAttribute('aria-label', p.t1.replace(/,$/, ''));
-  const tag = p.h1 ? 'h1' : 'h2';
+  s.className = 'panel' + (p.split ? ' split' : '') + (p.hero ? ' hero' : '');
+  s.id = p.id; s.setAttribute('aria-label', p.hero ? 'Gjona × Villa Sjövik' : p.t1.replace(/,$/, ''));
   let media;
   if (p.split) {
     media = `<div class="half half--a"><div class="media" data-media style="--pos:50%;--pos-p:72%">${pic(p.split[0], p.alt[0])}</div></div>
              <div class="half half--b" data-b><div class="media" data-media style="--pos:50%;--pos-p:80%">${pic(p.split[1], p.alt[1])}</div></div><div class="seam" data-seam></div>`;
   } else {
-    const frames = p.frames && FRAMES_READY
-      ? FRAME_KEYS.map((k, j) => pic(`ljus/${p.frames}-${k}`, j ? '' : p.alt, 'frame', i === 0)).join('')
+    const frames = p.frames
+      ? FRAME_KEYS.map((k, j) => pic(`ljus/${p.frames}-${k}`, j ? '' : p.alt, 'frame')).join('')
       : pic(p.img, p.alt, 'frame', i === 0);
     media = `<div class="media" data-media style="--pos:${p.pos};--pos-p:${p.posP}">${frames}</div>`;
   }
+  const copy = p.hero ? heroCopy : `<div class="copy" data-copy>
+    <p class="eyebrow" data-rest>${p.eyebrow}</p>
+    <h2 class="title"><span class="line"><span>${p.t1}</span></span><em class="line"><span>${p.t2}</span></em></h2>
+    <p class="sub" data-rest>${p.sub}</p>${p.tags ? `<p class="tags" data-rest>${p.tags}</p>` : ''}
+    <a class="cta" href="#sec-cta" data-book data-rest>Book a meeting${arrow}</a>
+  </div>`;
   s.innerHTML = `${media}<div class="shade"></div><div class="dim" data-dim></div>
-    ${p.giant ? `<div class="giant" aria-hidden="true" data-giant>${p.giant}</div>` : ''}
-    <div class="copy" data-copy><${tag} class="title"><span class="line"><span>${p.t1}</span></span><em class="line"><span>${p.t2}</span></em></${tag}>
-    ${p.sub ? `<p class="sub">${p.sub}</p>` : ''}<a class="cta" href="${CTA}">Få et tilbud${arrow}</a>
-    </div>`;
+    ${p.giant ? `<div class="giant" aria-hidden="true" data-giant>${p.giant}</div>` : ''}${copy}`;
   stage.appendChild(s);
 });
 
@@ -189,8 +632,8 @@ PANELS.forEach((p, i) => {
   const els = [...stage.children].map((el, i) => ({
     el, cfg: PANELS[i], medias: [...el.querySelectorAll('[data-media]')], frames: [...el.querySelectorAll('.frame')],
     dim: el.querySelector('[data-dim]'), giant: el.querySelector('[data-giant]'), copy: el.querySelector('[data-copy]'),
-    lines: [...el.querySelectorAll('.line > span')], rest: [...el.querySelectorAll('.sub,.cta,.contact')],
-    b: el.querySelector('[data-b]'), seam: el.querySelector('[data-seam]')
+    lines: [...el.querySelectorAll('.line > span')], rest: [...el.querySelectorAll('[data-rest]')],
+    b: el.querySelector('[data-b]'), seam: el.querySelector('[data-seam]'), shown: null
   }));
   const track = document.getElementById('track'), rail = document.getElementById('railfill');
   let vh = 0, marks = [], total = 0, lastW = 0, shown = scrollY, last = -1;
@@ -214,58 +657,226 @@ PANELS.forEach((p, i) => {
     const y = scrollY;
     shown = reduce ? y : shown + (y - shown) * (fine ? .13 : 1);
     if (Math.abs(y - shown) < .1) shown = y;
-    const introT = clamp((now - intro) / 1500);
-    if (shown !== last || introT < 1) {
-      last = shown;
-      rail.style.transform = `scaleY(${clamp(shown / Math.max(1, total - vh)).toFixed(4)})`;
-      els.forEach((p, i) => {
-        const m = marks[i];
-        const e = i === 0 ? 1 : clamp((shown - m.a) / vh);
-        const h = clamp((shown - m.hs) / Math.max(1, m.he - m.hs));
-        const o = i < els.length - 1 ? clamp((shown - marks[i + 1].a) / vh) : 0;
-        const on = e > 0 && o < 1;
-        p.el.style.visibility = on ? 'visible' : 'hidden';
-        if (!on) return;
-        p.el.style.zIndex = i + 1;
-        if (reduce) { p.el.style.opacity = e; return; }
-        const ee = io3(e);
-        // gardinen: nästa skärm stiger upp underifrån och klipper fram sig
-        p.el.style.clipPath = e < 1 ? `inset(${((1 - ee) * 100).toFixed(2)}% 0 0 0)` : 'none';
-        const s = 1.14 - .1 * ee + .035 * h + .05 * o;
-        const ty = (1 - ee) * 14 - o * 7;
-        p.medias.forEach(md => md.style.transform = `translate3d(0,${ty.toFixed(2)}vh,0) scale(${s.toFixed(4)})`);
-        p.dim.style.opacity = (o * .65).toFixed(3);
-        // ljusrutor: blandas i takt med håll-sträckan
-        if (p.frames.length > 1) {
-          const f = h * (p.frames.length - 1);
-          p.frames.forEach((fr, j) => { if (j) fr.style.opacity = clamp(f - (j - 1)).toFixed(3); });
-        }
-        // delad skärm: asken skjuts in från höger (stående: underifrån) under hållet
-        if (p.b) {
-          const port = innerHeight > innerWidth;
-          const k = out3(clamp(h / .55));
-          const cut = ((1 - k) * 100).toFixed(2);       // asken: egen halva, klipps fram från kanten
-          p.b.style.clipPath = port ? `inset(${cut}% 0 0 0)` : `inset(0 0 0 ${cut}%)`;
-          if (p.seam) p.seam.style.left = (50 + (1 - k) * 50).toFixed(2) + '%';
-          const a = p.medias[0];                          // eken skjuts undan så dess mönster hamnar i sin halva
-          a.style.transform += port ? ` translate3d(0,${(-25 * k).toFixed(2)}vh,0)` : ` translate3d(${(-25 * k).toFixed(2)}vw,0,0)`;
-        }
-        // jättenamnet glider i sidled genom hela skärmens liv
-        if (p.giant) {
-          const g = (e + h + o) / 3;
-          p.giant.style.transform = `translate3d(${(18 - g * 70).toFixed(2)}vw,0,0)`;
-        }
-        // rubriken lyfts ur sin mask
-        const t = i === 0 ? out3(introT) : clamp((e - .4) / .55);
-        p.lines.forEach((l, k) => { const tk = clamp(t * 1.25 - k * .2); l.style.transform = `translate3d(0,${((1 - out3(tk)) * 105).toFixed(1)}%,0)`; });
-        const tr = out3(clamp(t * 1.4 - .4));
-        p.rest.forEach(r => { r.style.opacity = tr; r.style.translate = `0 ${((1 - tr) * 18).toFixed(1)}px`; });
-        p.copy.style.opacity = (1 - clamp(o * 2.2)).toFixed(3);
-      });
-    }
+    const introT = clamp((now - intro) / 1600);
+    if (shown === last && introT >= 1) return;
+    last = shown;
+    const docMax = Math.max(1, document.documentElement.scrollHeight - vh);
+    rail.style.transform = `scaleY(${clamp(shown / docMax).toFixed(4)})`;
+    els.forEach((p, i) => {
+      const m = marks[i];
+      const e = i === 0 ? 1 : clamp((shown - m.a) / vh);
+      const h = clamp((shown - m.hs) / Math.max(1, m.he - m.hs));
+      const nextA = i < els.length - 1 ? marks[i + 1].a : total;   // sista skärmen täcks av erbjudandet
+      const o = clamp((shown - nextA) / vh);
+      const on = e > 0 && o < 1;
+      if (p.shown !== on) {
+        p.el.style.visibility = on ? 'visible' : 'hidden'; p.shown = on;
+        // 3D-loggorna renderar bara när startskärmen syns (display:none stoppar deras egen observatör)
+        p.el.querySelectorAll('.h-lockup').forEach(l => l.style.display = on ? '' : 'none');
+      }
+      if (!on) return;
+      p.el.style.zIndex = i + 1;
+      if (reduce) { p.el.style.opacity = e; p.lines.forEach(l => l.style.transform = 'none'); p.rest.forEach(r => r.style.opacity = 1); return; }
+      const ee = io3(e);
+      // gardinen: nästa skärm stiger upp underifrån och klipper fram sig
+      p.el.style.clipPath = e < 1 ? `inset(${((1 - ee) * 100).toFixed(2)}% 0 0 0)` : 'none';
+      const s = 1.14 - .1 * ee + .035 * h + .05 * o;
+      const ty = (1 - ee) * 14 - o * 7;
+      p.medias.forEach(md => md.style.transform = `translate3d(0,${ty.toFixed(2)}vh,0) scale(${s.toFixed(4)})`);
+      p.dim.style.opacity = (o * .65).toFixed(3);
+      // ljusrutor: blandas i takt med håll-sträckan
+      if (p.frames.length > 1) {
+        const f = h * (p.frames.length - 1);
+        p.frames.forEach((fr, j) => { if (j) fr.style.opacity = clamp(f - (j - 1)).toFixed(3); });
+      }
+      // delad skärm: asken skjuts in från höger (stående: underifrån) under hållet
+      if (p.b) {
+        const port = innerHeight > innerWidth;
+        const k = out3(clamp(h / .55));
+        const cut = ((1 - k) * 100).toFixed(2);
+        p.b.style.clipPath = port ? `inset(${cut}% 0 0 0)` : `inset(0 0 0 ${cut}%)`;
+        if (p.seam) p.seam.style.left = (50 + (1 - k) * 50).toFixed(2) + '%';
+        const a = p.medias[0];
+        a.style.transform += port ? ` translate3d(0,${(-25 * k).toFixed(2)}vh,0)` : ` translate3d(${(-25 * k).toFixed(2)}vw,0,0)`;
+      }
+      // jättenamnet glider i sidled genom hela skärmens liv
+      if (p.giant) {
+        const g = (e + h + o) / 3;
+        p.giant.style.transform = `translate3d(${(18 - g * 70).toFixed(2)}vw,0,0)`;
+      }
+      // rubriken lyfts ur sin mask, resten följer efter
+      const t = i === 0 ? out3(introT) : clamp((e - .4) / .55);
+      p.lines.forEach((l, k) => { const tk = clamp(t * 1.25 - k * .2); l.style.transform = `translate3d(0,${((1 - out3(tk)) * 105).toFixed(1)}%,0)`; });
+      const tr = out3(clamp(t * 1.4 - .4));
+      p.rest.forEach(r => { r.style.opacity = tr; r.style.translate = `0 ${((1 - tr) * 18).toFixed(1)}px`; });
+      p.copy.style.opacity = (1 - clamp(o * 2.2)).toFixed(3);
+    });
   }
   requestAnimationFrame(frame);
 })();
+
+/* ---------- avslöjanden i erbjudandet ---------- */
+(() => {
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .2 });
+  document.querySelectorAll('.rv').forEach(el => io.observe(el));
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const cio = new IntersectionObserver(es => es.forEach(e => {
+    if (!e.isIntersecting) return; cio.unobserve(e.target);
+    const el = e.target, to = +el.dataset.v; if (reduce) return;
+    const t0 = performance.now();
+    (function tick(now) { const t = Math.min(1, (now - t0) / 1400); el.textContent = String(Math.round(to * (1 - Math.pow(1 - t, 3)))).replace(/\B(?=(\d{3})+(?!\d))/g, '\u00a0'); if (t < 1) requestAnimationFrame(tick); })(t0);
+  }), { threshold: .6 });
+  document.querySelectorAll('.cu').forEach(el => cio.observe(el));
+  /* loggor: visa den platta loggan om 3D aldrig levererar en canvas */
+  setTimeout(() => document.querySelectorAll('.logo-3d').forEach(el => { if (!el.querySelector('canvas')) el.classList.add('logo3d-failed'); }), 7000);
+})();
+
+/* ---------- reach boost per paket (NOK) ---------- */
+(() => {
+  const VIEWS_PER_NOK = 15, STEPS = [0, 5000, 10000, 20000], MULT = { start: 1, season: 3 };
+  const budget = { start: 10000, season: 10000 };
+  const fmt = n => String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, '\u00a0');
+  function anim(el, from, to, ms) {
+    const token = (el._a = (el._a | 0) + 1), t0 = performance.now();
+    (function tick(now) { if (el._a !== token) return; const t = Math.min(1, (now - t0) / ms); el.textContent = fmt(from + (to - from) * (1 - Math.pow(1 - t, 3))); if (t < 1) requestAnimationFrame(tick); })(t0);
+  }
+  function refresh(pkg, animate) {
+    const col = document.querySelector(`[data-pkg-col="${pkg}"]`);
+    const wrap = col.querySelector('.pkg-boost'), on = wrap.getAttribute('aria-pressed') === 'true';
+    const cost = budget[pkg] * MULT[pkg], views = budget[pkg] * VIEWS_PER_NOK * MULT[pkg];
+    col.querySelector(`[data-bt-price="${pkg}"]`).textContent = `+${fmt(cost)} NOK`;
+    col.querySelector(`[data-pkg-desc="${pkg}"]`).hidden = views === 0;
+    col.querySelector(`[data-pkg-desc-zero="${pkg}"]`).hidden = views !== 0;
+    col.querySelector(`[data-bt-stat="${pkg}"]`).textContent = fmt(views);
+    const step = STEPS.indexOf(budget[pkg]);
+    const sl = col.querySelector(`[data-pkg-slider="${pkg}"]`); sl.value = step; sl.style.setProperty('--fill', (step / 3 * 100) + '%');
+    [...col.querySelectorAll(`[data-ticks="${pkg}"] span`)].forEach((t, j) => t.classList.toggle('on', j === step));
+    const total = col.querySelector('.price-total'), orig = col.querySelector('.price-orig');
+    const base = +total.dataset.base, target = on ? base + cost : base;
+    const cur = parseInt(total.textContent.replace(/[^\d]/g, ''), 10);
+    if (animate && cur !== target) { anim(total, cur, target, 520); total.classList.remove('pulse'); void total.offsetWidth; total.classList.add('pulse'); }
+    else total.textContent = fmt(target);
+    if (orig) orig.textContent = `reg. ${fmt(+orig.dataset.base + (on ? cost : 0))} NOK`;
+  }
+  document.querySelectorAll('.pkg-boost').forEach(wrap => {
+    const pkg = wrap.dataset.pkg, head = wrap.querySelector('.pkg-boost-head');
+    head.addEventListener('click', () => {
+      const next = wrap.getAttribute('aria-pressed') !== 'true';
+      wrap.setAttribute('aria-pressed', next); head.setAttribute('aria-pressed', next);
+      wrap.querySelector('.pkg-boost-body').setAttribute('aria-hidden', !next);
+      refresh(pkg, true);
+    });
+    wrap.querySelector('.pkg-range').addEventListener('input', ev => { budget[pkg] = STEPS[+ev.target.value]; refresh(pkg, true); });
+    refresh(pkg, false);
+  });
+})();
+
+/* ---------- bokning ---------- */
+(() => {
+  const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const DAYS_SHORT = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+  const DAYS_LONG = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  const RECIPIENT = 'lucasnorberg3@gmail.com';
+  const $ = id => document.getElementById(id);
+  const panel = $('bk-panel'), openBtn = $('bk-open');
+  const stages = panel.querySelectorAll('.bk-stage'), steps = panel.querySelectorAll('.bk-step');
+  const state = { stage: 1, y: 0, m: 0, date: null, time: null };
+  const today = new Date(); today.setHours(0, 0, 0, 0); state.y = today.getFullYear(); state.m = today.getMonth();
+  const long = d => `${DAYS_LONG[d.getDay()]}, ${MONTHS[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`;
+
+  function open() {
+    panel.classList.add('open'); panel.setAttribute('aria-hidden', 'false'); openBtn.setAttribute('aria-expanded', 'true');
+    go(1); cal();
+    setTimeout(() => panel.scrollIntoView({ behavior: 'smooth', block: 'center' }), 300);
+  }
+  function close() { panel.classList.remove('open'); panel.setAttribute('aria-hidden', 'true'); openBtn.setAttribute('aria-expanded', 'false'); }
+  function go(n) {
+    state.stage = n;
+    stages.forEach(s => s.classList.toggle('active', +s.dataset.stage === n));
+    steps.forEach(s => { const k = +s.dataset.step; s.classList.toggle('active', k === n); s.classList.toggle('done', k < n); });
+  }
+  function cal() {
+    const y = state.y, m = state.m, grid = $('bk-cal-grid');
+    $('bk-cal-month').textContent = `${MONTHS[m]} ${y}`;
+    $('bk-cal-prev').disabled = y === today.getFullYear() && m === today.getMonth();
+    const max = new Date(today); max.setMonth(max.getMonth() + 3);
+    $('bk-cal-next').disabled = y === max.getFullYear() && m >= max.getMonth();
+    grid.innerHTML = DAYS_SHORT.map(d => `<div class="bk-cal-hdr">${d}</div>`).join('');
+    let off = new Date(y, m, 1).getDay() - 1; if (off < 0) off = 6;
+    for (let i = 0; i < off; i++) grid.insertAdjacentHTML('beforeend', '<div class="bk-cal-day empty"></div>');
+    const n = new Date(y, m + 1, 0).getDate();
+    for (let d = 1; d <= n; d++) {
+      const dt = new Date(y, m, d), dow = dt.getDay();
+      const b = document.createElement('button'); b.type = 'button'; b.className = 'bk-cal-day'; b.textContent = d;
+      if (dt.getTime() === today.getTime()) b.classList.add('today');
+      if (state.date && dt.getTime() === state.date.getTime()) b.classList.add('selected');
+      if (dt < today || dow === 0 || dow === 6) b.disabled = true;
+      else b.addEventListener('click', () => { state.date = dt; cal(); $('bk-to-time').disabled = false; });
+      grid.appendChild(b);
+    }
+  }
+  openBtn.addEventListener('click', () => panel.classList.contains('open') ? close() : open());
+  $('bk-close').addEventListener('click', close); $('bk-cancel').addEventListener('click', close);
+  $('bk-done-close').addEventListener('click', () => { close(); reset(); });
+  panel.querySelectorAll('[data-back]').forEach(b => b.addEventListener('click', () => go(+b.dataset.back)));
+  $('bk-cal-prev').addEventListener('click', () => { if (--state.m < 0) { state.m = 11; state.y--; } cal(); });
+  $('bk-cal-next').addEventListener('click', () => { if (++state.m > 11) { state.m = 0; state.y++; } cal(); });
+  $('bk-to-time').addEventListener('click', () => {
+    if (!state.date) return; $('bk-sel-date').textContent = long(state.date); state.time = null;
+    $('bk-slots').querySelectorAll('.bk-slot').forEach(s => s.classList.remove('selected')); $('bk-to-form').disabled = true; go(2);
+  });
+  $('bk-slots').querySelectorAll('.bk-slot').forEach(b => b.addEventListener('click', () => {
+    $('bk-slots').querySelectorAll('.bk-slot').forEach(s => s.classList.remove('selected'));
+    b.classList.add('selected'); state.time = b.dataset.time; $('bk-to-form').disabled = false;
+  }));
+  $('bk-to-form').addEventListener('click', () => {
+    if (!state.time) return;
+    $('bk-summary').innerHTML = `Meeting requested: <b>${long(state.date)} at ${state.time}</b>`; go(3);
+  });
+  function valid() {
+    let ok = true;
+    ['bk-name', 'bk-email'].forEach(id => { const el = $(id), bad = !el.value.trim(); el.closest('.bk-field').classList.toggle('err', bad); if (bad) ok = false; });
+    const em = $('bk-email');
+    if (em.value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em.value.trim())) { em.closest('.bk-field').classList.add('err'); ok = false; }
+    return ok;
+  }
+  $('bk-submit').addEventListener('click', async () => {
+    const err = $('bk-err'), btn = $('bk-submit'); err.hidden = true;
+    if (!valid()) { err.textContent = 'Please enter your name and a valid email address.'; err.hidden = false; return; }
+    btn.disabled = true; btn.textContent = 'Sending…';
+    const p = {
+      _subject: `New meeting request — ${$('bk-name').value.trim()} (Gjona)`, _template: 'table', _captcha: 'false',
+      BookingType: 'Digital meeting via Gjona proposal', Date: long(state.date), Time: state.time,
+      Name: $('bk-name').value.trim(), Email: $('bk-email').value.trim(), Message: $('bk-msg').value.trim() || '—',
+      Source: 'Gjona proposal (villasjovik.github.io/gjona-forslag)'
+    };
+    let sent = false;
+    try {
+      const res = await fetch(`https://formsubmit.co/ajax/${RECIPIENT}`, { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify(p) });
+      const data = await res.json().catch(() => ({}));
+      sent = res.ok && (data.success === 'true' || data.success === true);
+    } catch (e) { /* nätverksfel: mailto nedan */ }
+    if (!sent) {
+      const body = `New meeting request (digital meeting)\n\nDate: ${p.Date}\nTime: ${p.Time}\n\nName: ${p.Name}\nEmail: ${p.Email}\n\nMessage:\n${p.Message}\n\n— Sent via Gjona proposal`;
+      location.href = `mailto:${RECIPIENT}?subject=${encodeURIComponent(p._subject)}&body=${encodeURIComponent(body)}`;
+      $('bk-done-text').textContent = 'The booking opens in your email app — send it there to confirm the time. We will reply within 24h.';
+    }
+    go(4); btn.disabled = false; btn.textContent = 'Send booking →';
+  });
+  function reset() {
+    state.date = null; state.time = null; state.y = today.getFullYear(); state.m = today.getMonth();
+    $('bk-to-time').disabled = true; $('bk-to-form').disabled = true; $('bk-form').reset();
+    document.querySelectorAll('.bk-field').forEach(f => f.classList.remove('err')); go(1);
+  }
+  /* varje skärms knapp: åk ner till mötet och öppna kalendern */
+  document.querySelectorAll('[data-book]').forEach(a => a.addEventListener('click', ev => {
+    ev.preventDefault();
+    const sec = $('sec-cta');
+    scrollTo({ top: sec.getBoundingClientRect().top + scrollY, behavior: 'instant' });
+    if (!panel.classList.contains('open')) setTimeout(open, 500);
+  }));
+})();
 </script>
+<script type="module" src="./logo3d.js"></script>
 </body>
 </html>
