@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="no">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>GJONA · Heltre, laget på mål</title>
+<meta name="description" content="Spisebord og sofabord i heltre eik og ask, laget på bestilling og produsert i Norge.">
+<meta name="theme-color" content="#0d1316">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/png" href="favicon.png">
+<meta property="og:type" content="website">
+<meta property="og:title" content="GJONA · Heltre, laget på mål">
+<meta property="og:description" content="Forslag til ny landingsside for GJONA.">
+<meta property="og:image" content="https://villasjovik.github.io/gjona-forslag/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,700;0,6..96,800;0,6..96,900;1,6..96,400;1,6..96,500&family=Hanken+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0d1316;
+  --paper:#eef0ec;
+  --frost:#b9ccd4;
+  --muted:rgba(238,240,236,.74);
+  --ease:cubic-bezier(.16,1,.3,1);
+  --serif:"Bodoni Moda", "Didot", Georgia, serif;
+  --sans:"Hanken Grotesk", system-ui, sans-serif;
+  --gutter:clamp(20px,5vw,72px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--ink);-webkit-text-size-adjust:100%}
+body{background:var(--ink);color:var(--paper);font-family:var(--sans);-webkit-font-smoothing:antialiased;overflow-x:clip}
+::selection{background:var(--frost);color:var(--ink)}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--frost);outline-offset:4px}
+
+/* Fast scen; skrollsträckan (#track) styr allt som syns på scenen. */
+#track{position:relative;width:1px;pointer-events:none}
+#stage{position:fixed;inset:0;overflow:hidden;background:var(--ink)}
+
+.brand{position:fixed;z-index:30;top:max(18px,env(safe-area-inset-top));left:var(--gutter);
+  display:flex;align-items:baseline;gap:.55em;text-decoration:none;text-shadow:0 1px 18px rgba(8,12,14,.45)}
+.brand b{font-family:var(--serif);font-weight:800;font-size:clamp(19px,1.7vw,24px);letter-spacing:.2em}
+.brand i{font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(14px,1.1vw,16px);color:var(--frost)}
+
+.rail{position:fixed;z-index:30;right:clamp(14px,2.2vw,30px);top:50%;height:min(36vh,280px);width:1px;transform:translateY(-50%);background:rgba(238,240,236,.18)}
+.rail i{position:absolute;left:-.5px;top:0;width:2px;height:100%;background:var(--paper);transform-origin:top;transform:scaleY(0)}
+
+.panel{position:absolute;inset:0;visibility:hidden;overflow:hidden;will-change:clip-path}
+.media{position:absolute;inset:-6% 0;will-change:transform}
+.media picture,.media img{position:absolute;inset:0;width:100%;height:100%}
+.media img{object-fit:cover;object-position:var(--pos,50%) 50%;display:block}
+.frame + .frame{opacity:0}
+.shade{position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(90deg,rgba(9,13,15,.62) 0%,rgba(9,13,15,.26) 36%,rgba(9,13,15,0) 60%),
+             linear-gradient(0deg,rgba(9,13,15,.55) 0%,rgba(9,13,15,0) 42%)}
+.dim{position:absolute;inset:0;background:#05080a;opacity:0;pointer-events:none}
+
+.giant{position:absolute;z-index:1;left:0;bottom:-.14em;white-space:nowrap;pointer-events:none;
+  font-family:var(--serif);font-weight:900;font-size:clamp(120px,24vw,420px);line-height:1;letter-spacing:-.02em;
+  color:rgba(238,240,236,.075);will-change:transform}
+
+.copy{position:absolute;z-index:2;left:var(--gutter);bottom:clamp(44px,12vh,128px);max-width:min(48rem,58vw)}
+.title{font-family:var(--serif);font-weight:800;line-height:.98;letter-spacing:-.02em;font-size:clamp(46px,6.6vw,112px);text-wrap:balance}
+.title em{display:block;font-weight:400;font-style:italic;color:var(--frost);letter-spacing:-.01em;line-height:1.1;padding-bottom:.08em;font-size:.74em;margin-top:.06em}
+.line{display:block;overflow:hidden;padding-bottom:.04em}
+.line > span{display:block;will-change:transform}
+.sub{margin-top:clamp(14px,1.6vw,22px);font-size:clamp(15px,1.15vw,18px);line-height:1.5;color:var(--muted);max-width:34ch}
+.cta{margin-top:clamp(22px,2.6vw,36px);display:inline-flex;align-items:center;gap:14px;padding:9px 10px 9px 26px;border-radius:999px;
+  background:var(--paper);color:var(--ink);font-weight:600;font-size:16px;text-decoration:none;white-space:nowrap;
+  box-shadow:0 12px 34px rgba(4,8,10,.32);transition:transform .5s var(--ease),background-color .4s var(--ease)}
+.cta .arrow{display:grid;place-items:center;width:38px;height:38px;border-radius:999px;background:var(--ink);color:var(--paper);transition:transform .5s var(--ease)}
+.cta svg{width:16px;height:16px}
+.cta:hover{background:#fff}
+.cta:hover .arrow{transform:translateX(3px) rotate(-45deg)}
+.cta:active{transform:scale(.97)}
+.contact{margin-top:18px;font-size:14px;color:var(--muted)}
+.contact a{text-decoration:none;border-bottom:1px solid rgba(238,240,236,.3)}
+
+/* Delad skärm: eik | ask */
+.split .half{position:absolute;inset:0;overflow:hidden}
+.split .half--a .media{will-change:transform}
+.split .half--b{left:50%;will-change:clip-path}
+.split .seam{position:absolute;z-index:2;top:0;bottom:0;width:1px;background:rgba(238,240,236,.5);left:100%}
+.split .shade{background:linear-gradient(0deg,rgba(9,13,15,.6) 0%,rgba(9,13,15,0) 48%)}
+.split .copy{left:50%;transform:translateX(-50%);text-align:center;max-width:90vw}
+.split .title{display:flex;align-items:baseline;justify-content:center;gap:.28em;flex-wrap:wrap}
+.split .title em{display:inline-block;margin:0}
+.split .sub{margin-inline:auto}
+
+.end .shade{background:radial-gradient(120% 90% at 50% 55%,rgba(9,13,15,.35) 0%,rgba(9,13,15,.8) 70%)}
+.end .copy{left:50%;bottom:auto;top:50%;transform:translate(-50%,-50%);text-align:center;max-width:min(46rem,88vw)}
+.end .sub{margin-inline:auto}
+
+@media (orientation: portrait), (max-width: 760px){
+  .shade{background:linear-gradient(180deg,rgba(9,13,15,.66) 0%,rgba(9,13,15,.24) 34%,rgba(9,13,15,0) 52%),
+                    linear-gradient(0deg,rgba(9,13,15,.5) 0%,rgba(9,13,15,0) 30%)}
+  .media img{object-position:var(--pos-p,50%) 50%}
+  .copy{top:calc(max(18px,env(safe-area-inset-top)) + 58px);bottom:calc(28px + env(safe-area-inset-bottom));left:20px;right:20px;max-width:none;display:flex;flex-direction:column;align-items:flex-start}
+  .title{font-size:clamp(42px,12.5vw,64px)}
+  .sub{font-size:15px}
+  .cta{margin-top:auto}
+  .giant{font-size:46vw;bottom:auto;top:44%}
+  .rail{display:none}
+  .brand{left:20px}
+  .split .copy{left:20px;right:20px;transform:none;align-items:center;text-align:center}
+  .split .seam{display:none}
+  .split .half--b{left:0;top:50%}
+  .end .copy{top:50%;bottom:auto;left:50%;right:auto;width:calc(100% - 40px);align-items:center}
+  .end .cta{margin-top:28px}
+}
+</style>
+</head>
+<body>
+
+<a class="brand" href="#" aria-label="GJONA, Design of Norway"><b>GJONA</b><i>of Norway</i></a>
+<div class="rail" aria-hidden="true"><i id="railfill"></i></div>
+<div id="stage"></div>
+<div id="track" aria-hidden="true"></div>
+
+<noscript><p style="padding:40px">GJONA: spisebord og sofabord i heltre eik og ask. <a href="https://www.gjona.no/side/kontakt_oss">Få et tilbud</a></p></noscript>
+
+<script>
+/* ---------- innehåll ---------- */
+const CTA = 'https://www.gjona.no/side/kontakt_oss';
+const FRAMES_READY = true;             // sätts true när ljusrutorna (img/ljus/) finns
+const FRAME_KEYS = ['k1','k2','k3','k4'];
+const PANELS = [
+  { id:'fiskeben', img:'01-fiskeben', frames:'01-fiskeben', hold:2.2, pos:'50%', posP:'30%', giant:'Fiskeben', h1:true,
+    t1:'Heltre,', t2:'laget på mål.', sub:'Spisebord og sofabord i heltre eik og ask.', alt:'Spisebord i lys eik med fiskebensmønster i en stue med utsikt mot fjorden' },
+  { id:'kvitholm', img:'02-kvitholm', hold:.9, pos:'75%', posP:'55%', giant:'Kvitholm',
+    t1:'Kvitholm', t2:'fra 120 til 500 cm.', alt:'Kvitholm spisebord i lys eik med X-ben i stål' },
+  { id:'expoborg', img:'06-expoborg', hold:.9, pos:'70%', posP:'55%', giant:'Expo Borg',
+    t1:'Expo Borg', t2:'rund, med uttrekk.', alt:'Rundt spisebord i eik med uttrekk på et kjøkken' },
+  { id:'tripod', img:'03-tripod', frames:'03-tripod', hold:2.2, pos:'80%', posP:'55%', giant:'Tripod',
+    t1:'Tripod', t2:'rustikk eik, helstav.', alt:'Rundt sofabord i rustikk eik foran en peis' },
+  { id:'fiskebensofa', img:'07-fiskebensofa', hold:.9, pos:'65%', posP:'50%', giant:'Fiskeben',
+    t1:'Fiskeben', t2:'også som sofabord.', alt:'Kvadratisk sofabord i lys eik med fiskebensmønster' },
+  { id:'treslag', split:['09-eik','10-ask'], hold:1.6,
+    t1:'Eik', t2:'eller ask.', sub:'Og andre tresorter etter ønske.', alt:['Nærbilde av oljet eik','Nærbilde av lys ask'] },
+  { id:'monolith', img:'04-monolith', hold:.9, pos:'60%', posP:'60%', giant:'Monolith',
+    t1:'Log Monolith', t2:'for hytta.', alt:'Massivt spisebord av brede eikeplanker med kryssben i en hytte' },
+  { id:'organisk', img:'08-organisk', hold:.9, pos:'65%', posP:'55%', giant:'Organisk',
+    t1:'Organisk kant', t2:'200, 250 eller 300 cm.', alt:'Spisebord av eikeplank med naturlig kant ved store vinduer' },
+  { id:'verksted', img:'11-verksted', hold:.9, pos:'60%', posP:'55%',
+    t1:'På bestilling,', t2:'produsert i Norge.', alt:'Hender som måler en bordplate i eik med tommestokk i et verksted' },
+  { id:'kontakt', img:'05-detalj', hold:.6, end:true, pos:'62%', posP:'70%',
+    t1:'Ditt bord,', t2:'for generasjoner.', sub:'Vi leverer over hele Norge.', alt:'Nærbilde av fiskebensmønster i oljet eik' }
+];
+
+/* ---------- uppbyggnad ---------- */
+const arrow = '<span class="arrow" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 8h11M9 4l4 4-4 4"/></svg></span>';
+const pic = (base, alt, cls = '', eager = false) =>
+  `<picture class="${cls}"><source media="(orientation: portrait)" srcset="img/${base}-staende.jpg"><img src="img/${base}-liggande.jpg" alt="${alt}" decoding="async"${eager ? ' fetchpriority="high"' : ''}></picture>`;
+const stage = document.getElementById('stage');
+PANELS.forEach((p, i) => {
+  const s = document.createElement('section');
+  s.className = 'panel' + (p.split ? ' split' : '') + (p.end ? ' end' : '');
+  s.id = p.id; s.setAttribute('aria-label', p.t1.replace(/,$/, ''));
+  const tag = p.h1 ? 'h1' : 'h2';
+  let media;
+  if (p.split) {
+    media = `<div class="half half--a"><div class="media" data-media style="--pos:50%;--pos-p:72%">${pic(p.split[0], p.alt[0])}</div></div>
+             <div class="half half--b" data-b><div class="media" data-media style="--pos:50%;--pos-p:80%">${pic(p.split[1], p.alt[1])}</div></div><div class="seam" data-seam></div>`;
+  } else {
+    const frames = p.frames && FRAMES_READY
+      ? FRAME_KEYS.map((k, j) => pic(`ljus/${p.frames}-${k}`, j ? '' : p.alt, 'frame', i === 0)).join('')
+      : pic(p.img, p.alt, 'frame', i === 0);
+    media = `<div class="media" data-media style="--pos:${p.pos};--pos-p:${p.posP}">${frames}</div>`;
+  }
+  s.innerHTML = `${media}<div class="shade"></div><div class="dim" data-dim></div>
+    ${p.giant ? `<div class="giant" aria-hidden="true" data-giant>${p.giant}</div>` : ''}
+    <div class="copy" data-copy><${tag} class="title"><span class="line"><span>${p.t1}</span></span><em class="line"><span>${p.t2}</span></em></${tag}>
+    ${p.sub ? `<p class="sub">${p.sub}</p>` : ''}<a class="cta" href="${CTA}">Få et tilbud${arrow}</a>
+    </div>`;
+  stage.appendChild(s);
+});
+
+/* ---------- skrollkoppling: allt nedan är en funktion av skrollpositionen (scrubbat, inte triggat) ---------- */
+(() => {
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const fine = matchMedia('(pointer: fine)').matches;
+  const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+  const out3 = t => 1 - Math.pow(1 - t, 3);
+  const io3 = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+  const els = [...stage.children].map((el, i) => ({
+    el, cfg: PANELS[i], medias: [...el.querySelectorAll('[data-media]')], frames: [...el.querySelectorAll('.frame')],
+    dim: el.querySelector('[data-dim]'), giant: el.querySelector('[data-giant]'), copy: el.querySelector('[data-copy]'),
+    lines: [...el.querySelectorAll('.line > span')], rest: [...el.querySelectorAll('.sub,.cta,.contact')],
+    b: el.querySelector('[data-b]'), seam: el.querySelector('[data-seam]')
+  }));
+  const track = document.getElementById('track'), rail = document.getElementById('railfill');
+  let vh = 0, marks = [], total = 0, lastW = 0, shown = scrollY, last = -1;
+  function layout() {
+    if (innerWidth === lastW && vh) return;          // mobilens adressfält ändrar bara höjden: ignorera
+    lastW = innerWidth; vh = document.documentElement.clientHeight;
+    let y = 0; marks = [];
+    els.forEach((p, i) => {
+      const a = i === 0 ? -vh : y;                   // övergången in börjar här
+      const hs = a + vh, he = hs + p.cfg.hold * vh;  // håll-sträckan
+      marks.push({ a, hs, he }); y = he;
+    });
+    total = y; track.style.height = (total + vh) + 'px'; last = -1;
+  }
+  const intro = performance.now();
+  addEventListener('resize', layout); layout();
+
+  window.__gjonaDraw = () => { shown = scrollY; last = -1; draw(performance.now()); };   // testkrok: rita direkt
+  function frame(now) { draw(now); requestAnimationFrame(frame); }
+  function draw(now) {
+    const y = scrollY;
+    shown = reduce ? y : shown + (y - shown) * (fine ? .13 : 1);
+    if (Math.abs(y - shown) < .1) shown = y;
+    const introT = clamp((now - intro) / 1500);
+    if (shown !== last || introT < 1) {
+      last = shown;
+      rail.style.transform = `scaleY(${clamp(shown / Math.max(1, total - vh)).toFixed(4)})`;
+      els.forEach((p, i) => {
+        const m = marks[i];
+        const e = i === 0 ? 1 : clamp((shown - m.a) / vh);
+        const h = clamp((shown - m.hs) / Math.max(1, m.he - m.hs));
+        const o = i < els.length - 1 ? clamp((shown - marks[i + 1].a) / vh) : 0;
+        const on = e > 0 && o < 1;
+        p.el.style.visibility = on ? 'visible' : 'hidden';
+        if (!on) return;
+        p.el.style.zIndex = i + 1;
+        if (reduce) { p.el.style.opacity = e; return; }
+        const ee = io3(e);
+        // gardinen: nästa skärm stiger upp underifrån och klipper fram sig
+        p.el.style.clipPath = e < 1 ? `inset(${((1 - ee) * 100).toFixed(2)}% 0 0 0)` : 'none';
+        const s = 1.14 - .1 * ee + .035 * h + .05 * o;
+        const ty = (1 - ee) * 14 - o * 7;
+        p.medias.forEach(md => md.style.transform = `translate3d(0,${ty.toFixed(2)}vh,0) scale(${s.toFixed(4)})`);
+        p.dim.style.opacity = (o * .65).toFixed(3);
+        // ljusrutor: blandas i takt med håll-sträckan
+        if (p.frames.length > 1) {
+          const f = h * (p.frames.length - 1);
+          p.frames.forEach((fr, j) => { if (j) fr.style.opacity = clamp(f - (j - 1)).toFixed(3); });
+        }
+        // delad skärm: asken skjuts in från höger (stående: underifrån) under hållet
+        if (p.b) {
+          const port = innerHeight > innerWidth;
+          const k = out3(clamp(h / .55));
+          const cut = ((1 - k) * 100).toFixed(2);       // asken: egen halva, klipps fram från kanten
+          p.b.style.clipPath = port ? `inset(${cut}% 0 0 0)` : `inset(0 0 0 ${cut}%)`;
+          if (p.seam) p.seam.style.left = (50 + (1 - k) * 50).toFixed(2) + '%';
+          const a = p.medias[0];                          // eken skjuts undan så dess mönster hamnar i sin halva
+          a.style.transform += port ? ` translate3d(0,${(-25 * k).toFixed(2)}vh,0)` : ` translate3d(${(-25 * k).toFixed(2)}vw,0,0)`;
+        }
+        // jättenamnet glider i sidled genom hela skärmens liv
+        if (p.giant) {
+          const g = (e + h + o) / 3;
+          p.giant.style.transform = `translate3d(${(18 - g * 70).toFixed(2)}vw,0,0)`;
+        }
+        // rubriken lyfts ur sin mask
+        const t = i === 0 ? out3(introT) : clamp((e - .4) / .55);
+        p.lines.forEach((l, k) => { const tk = clamp(t * 1.25 - k * .2); l.style.transform = `translate3d(0,${((1 - out3(tk)) * 105).toFixed(1)}%,0)`; });
+        const tr = out3(clamp(t * 1.4 - .4));
+        p.rest.forEach(r => { r.style.opacity = tr; r.style.translate = `0 ${((1 - tr) * 18).toFixed(1)}px`; });
+        p.copy.style.opacity = (1 - clamp(o * 2.2)).toFixed(3);
+      });
+    }
+  }
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
